@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+	<EditText
+		android:id="@+id/name_edit_text"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="20dp"
+		android:hint="@string/type_your_name"
+		android:inputType="textCapWords" />
+	<EditText
+		android:id="@+id/nick_edit_text"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="80dp"
+		android:hint="@string/type_your_nick"
+		android:inputType="textCapWords" />
+	<Spinner
+		android:id="@+id/dietSpinner"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="140dp" />
+	<Spinner
+		android:id="@+id/cookTypeSpinner"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="200dp" />
+	<Spinner
+		android:id="@+id/recipyCousineSpinner"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="260dp" />
+	<Button
+		android:id="@+id/add_name_button"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/name_edit_text"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="320dp"
+		android:text="@string/save" />
+</RelativeLayout>
