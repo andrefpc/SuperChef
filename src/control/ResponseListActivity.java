@@ -1,32 +1,23 @@
 package control;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-
 import service.JsonFromUrl;
-import service.WebServiceUtils;
-
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.superChef.R;
+import com.example.sharedprefs.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -39,12 +30,37 @@ public class ResponseListActivity extends Activity{
 	   ProgressDialog mProgressDialog;
 	   Gson gson = new Gson();
 	   Recipy recipy = new Recipy();
+	   String keyword = "";
+	   String prepareTime = "";
+	   String portions = "";
+	   String cookType = "";
+	   String prepareMode = "";
+	   String diet = "";
+	   String recipeCousine = "";
+	   String ocasion = "";
 	   
 
 	   @Override
 	   public void onCreate(Bundle savedInstanceState) {
 	       super.onCreate(savedInstanceState);
+		    getWindow().requestFeature(Window.FEATURE_ACTION_BAR); // Add this line
+		    ActionBar actionBar = getActionBar();
+		    actionBar.show();
+		    getActionBar().setIcon(R.drawable.chef);     
+		    getActionBar().setTitle("Super Chef");
+		    getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_background)); 
 	       setContentView(R.layout.response_list);
+	       
+	       Intent intent = getIntent();
+	       
+	       keyword = intent.getStringExtra("keyword");
+	       prepareTime = intent.getStringExtra("prepareTime");
+	       portions = intent.getStringExtra("portions");
+	       cookType = intent.getStringExtra("cookType");
+	       prepareMode = intent.getStringExtra("prepareMode");
+	       diet = intent.getStringExtra("diet");
+	       recipeCousine = intent.getStringExtra("recipeCousine");
+	       ocasion = intent.getStringExtra("ocasion");
 	       
 	       new JsonRecipyResult().execute();
 
@@ -66,6 +82,23 @@ public class ResponseListActivity extends Activity{
 	       @Override
 	       protected Void doInBackground(Void... params) {
 	    	   String url = "http://superchef.herokuapp.com/receitas";
+	    	   if(!keyword.equals("")){
+	    		   url += "titulo=" + keyword;
+	    	   }else if(!prepareTime.equals("")){
+	    		   url += "tempoPreparo=" + prepareTime;
+	    	   }else if(!portions.equals("")){
+	    		   url += "porcoes=" + portions;
+	    	   }else if(!cookType.equals("Tipo de comida")){
+	    		   url += "tipo=" + cookType;
+	    	   }else if(!prepareMode.equals("Tipo de comida")){
+	    		   url += "modoPreparo=" + prepareMode;
+	    	   }else if(!diet.equals("Dieta")){
+	    		   url += "dieta=" + diet;
+	    	   }else if(!recipeCousine.equals("Cozinha da receita")){
+	    		   url += "cozinha=" + recipeCousine;
+	    	   }else if(!ocasion.equals("Ocasião")){
+	    		   url += "ocasiao=" + ocasion;
+	    	   }
 	    	   java.lang.reflect.Type arrayListType = new TypeToken<ArrayList<Recipy>>(){}.getType();
 	    	   List<Recipy> recipyList = new ArrayList<Recipy>();
 	    	   
@@ -106,5 +139,25 @@ public class ResponseListActivity extends Activity{
            
        }
    }
+	   
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		if(item.getItemId() == R.id.changeInfo){
+			Intent intent = new Intent(this, AddUserInfoActivity.class);
+			startActivity(intent);
+		}
+		if(item.getItemId() == R.id.search){
+			Intent intent = new Intent(this, SearchRecipyActivity.class);
+			startActivity(intent);
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
 }

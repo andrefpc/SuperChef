@@ -2,7 +2,7 @@ package domain;
 
 public enum PrepareModeEnum {
 
-	ASSADO(1, "Assado"), COZIDO(2, "Cozido"), CRU(3, "Cru"), ENSOPADO(4,
+	UNKNOWN(0,"Modo de preparo"),ASSADO(1, "Assado"), COZIDO(2, "Cozido"), CRU(3, "Cru"), ENSOPADO(4,
 			"Ensopado"), FRITO(5, "Frito"), GELADOECONGELADO(6,
 			"Gelado e Congelado"), GRELHADO(7, "Grelhado"), MICROONDAS(8,
 			"Microondas"), REFODADO(9, "Refofado"), VAPOR(10, "Vapor");

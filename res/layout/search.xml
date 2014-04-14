@@ -4,7 +4,7 @@
 	android:layout_height="match_parent" >
 	<EditText
 		android:id="@+id/keyword_text"
-		android:layout_width="match_parent"
+		android:layout_width="250dp"
 		android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="20dp"
@@ -12,7 +12,7 @@
 		android:inputType="textCapWords" />
 	<EditText
 		android:id="@+id/prepareTime_text"
-		android:layout_width="match_parent"
+		android:layout_width="250dp"
 		android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="80dp"
@@ -20,7 +20,7 @@
 		android:inputType="textCapWords" />
 	<EditText
 		android:id="@+id/portions_text"
-		android:layout_width="match_parent"
+		android:layout_width="250dp"
 		android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="140dp"
@@ -28,37 +28,44 @@
 		android:inputType="textCapWords" />
 	<Spinner
 		android:id="@+id/cookTypeSpinner"
-		android:layout_width="match_parent"
+		android:layout_width="300dp"
 		android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
-		android:layout_marginTop="200dp" />
+		android:layout_marginTop="160dp"
+		android:background="@drawable/spinner" />
 	<Spinner
 		android:id="@+id/prepareModeSpinner"
-		android:layout_width="match_parent"
+		android:layout_width="300dp"
 		android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
-		android:layout_marginTop="260dp" />
+		android:layout_marginTop="220dp"
+		android:background="@drawable/spinner" />
 	<Spinner
 		android:id="@+id/dietSpinner"
-		android:layout_width="match_parent"
+		android:layout_width="300dp"
 		android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
-		android:layout_marginTop="320dp" />
+		android:layout_marginTop="280dp"
+		android:background="@drawable/spinner" />
 	<Spinner
 		android:id="@+id/recipyCousineSpinner"
-		android:layout_width="match_parent"
+		android:layout_width="300dp"
 		android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
-		android:layout_marginTop="380dp" />
+		android:layout_gravity="center"
+		android:layout_marginTop="340dp"
+		android:background="@drawable/spinner" />
 	<Spinner
 		android:id="@+id/ocasionSpinner"
-		android:layout_width="match_parent"
+		android:layout_width="300dp"
 		android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
-		android:layout_marginTop="440dp" />
+		android:layout_marginTop="400dp"
+		android:background="@drawable/spinner"
+		android:textAlignment="center" />
 	<Button
 		android:id="@+id/search"
-		android:layout_width="wrap_content"
+		android:layout_width="150dp"
 		android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="500dp"

@@ -2,7 +2,7 @@ package domain;
 
 public enum RecipyCousineEnum {
 
-	BRASILEIRA(1, "Brasileira"), BAINA(2, "Baiana"), GAUCHA(3, "Gaúcha"), MINEIRA(
+	UNKNOWN(0,"Cozinha da receita"),BRASILEIRA(1, "Brasileira"), BAINA(2, "Baiana"), GAUCHA(3, "Gaúcha"), MINEIRA(
 			4, "Mineira"), NORDESTINA(5, "Nordestina"), ALEMA(6, "Alemã"), AMERICANA(
 			7, "Americana"), ARABE(8, "Árabe"), CHINESA(9, "Chinesa"), ESPANHOLA(
 			10, "Espanhola"), FRANCESA(11, "Francesa"), GREGA(12, "Grega"), INDIANA(

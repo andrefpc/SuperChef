@@ -3,16 +3,20 @@ package control;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.superChef.R;
+import com.example.sharedprefs.R;
 
 import domain.CookTypeEnum;
 import domain.DietEnum;
@@ -25,6 +29,12 @@ public class SearchRecipyActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	    getWindow().requestFeature(Window.FEATURE_ACTION_BAR); // Add this line
+	    ActionBar actionBar = getActionBar();
+	    actionBar.show();
+	    getActionBar().setIcon(R.drawable.chef);     
+	    getActionBar().setTitle("Super Chef");
+	    getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_background)); 
 		setContentView(R.layout.search);
 		
 		final EditText keyword = (EditText) findViewById(R.id.keyword_text);
@@ -86,13 +96,13 @@ public class SearchRecipyActivity extends Activity {
 			public void onClick(View v) {
 				String keywordString = keyword.getEditableText().toString();
 				String prepareTimeString = prepareTime.getEditableText().toString();
-				String portionsTimeString = portions.getEditableText().toString();
+				String portionsString = portions.getEditableText().toString();
 				
 				Spinner cookTypeSp = (Spinner) findViewById(R.id.cookTypeSpinner);
 				String cookTypeSpinnerString = cookTypeSp.getSelectedItem().toString();
 				
 				Spinner prepareModeSp = (Spinner) findViewById(R.id.prepareModeSpinner);
-				String prepareModepinnerString = cookTypeSp.getSelectedItem().toString();
+				String prepareModepinnerString = prepareModeSp.getSelectedItem().toString();
 		            
 				Spinner dietSp = (Spinner) findViewById(R.id.dietSpinner);
 	            String dietSpinnerString = dietSp.getSelectedItem().toString();
@@ -101,13 +111,40 @@ public class SearchRecipyActivity extends Activity {
 	            String recipyCousineSpinnerString = recipyCousineSp.getSelectedItem().toString();
 
 				Spinner ocasionSp = (Spinner) findViewById(R.id.ocasionSpinner);
-				String ocasionSpinnerString = cookTypeSp.getSelectedItem().toString();
+				String ocasionSpinnerString = ocasionSp.getSelectedItem().toString();
 				
 				Intent intent = new Intent(SearchRecipyActivity.this, ResponseListActivity.class);
+				intent.putExtra("keyword",keywordString);
+				intent.putExtra("prepareTime",prepareTimeString);
+				intent.putExtra("portions",portionsString);
+				intent.putExtra("cookType",cookTypeSpinnerString);
+				intent.putExtra("prepareMode",prepareModepinnerString);
+				intent.putExtra("diet",dietSpinnerString);
+				intent.putExtra("recipeCousine",recipyCousineSpinnerString);
+				intent.putExtra("ocasion",ocasionSpinnerString);
 				startActivity(intent);
 	            
 			}
 		});
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		if(item.getItemId() == R.id.changeInfo){
+			Intent intent = new Intent(this, AddUserInfoActivity.class);
+			startActivity(intent);
+		}
+		if(item.getItemId() == R.id.search){
+			Intent intent = new Intent(this, SearchRecipyActivity.class);
+			startActivity(intent);
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }
 

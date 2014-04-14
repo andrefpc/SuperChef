@@ -2,7 +2,7 @@ package domain;
 
 public enum OcasionEnum {
 
-	ANIVERSARIO(1, "Aniversário"), CASAMENTO(2, "Casamento"), FESTAINFANTIL(3,
+	UNKNOWN(0,"Ocasião"),ANIVERSARIO(1, "Aniversário"), CASAMENTO(2, "Casamento"), FESTAINFANTIL(3,
 			"Festa Infantil"), FESTAJUNINA(4, "Festa Junina"), INVERNO(5,
 			"Inverno"), NATAL(6, "Natal"), PASCOA(7, "Páscoa"), RECEPCAO(8,
 			"Recepção"), REVEILLON(9, "Réveillon"), VERAO(10, "Verão");
