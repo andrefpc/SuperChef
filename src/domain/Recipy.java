@@ -12,6 +12,9 @@ public class Recipy implements Serializable{
 	@SerializedName("id")
 	private int id;
 	
+	@SerializedName("urlImagem")
+	private String imageUrl;
+	
 	@SerializedName("titulo")
 	private String titulo;
 	
@@ -44,6 +47,13 @@ public class Recipy implements Serializable{
 	}
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	public String getModoPreparo() {
 		return modoPreparo;

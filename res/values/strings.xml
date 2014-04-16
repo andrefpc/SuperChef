@@ -12,4 +12,6 @@
 	<string name="keyword">Palavra-chave</string>
 	<string name="prepareTime">Tempo de Preparo</string>
 	<string name="portions">Número de porções</string>
+	<string name="ingredients">Ingredientes:</string>
+	<string name="prepMode">Modo de preparo:</string>
 </resources>

@@ -12,10 +12,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.sharedprefs.R;
 import com.google.gson.Gson;
@@ -23,13 +25,16 @@ import com.google.gson.reflect.TypeToken;
 
 import domain.Ingredientes;
 import domain.Recipy;
+//import service.ItemAdapter;
+//import domain.ItemList;
 
-public class ResponseListActivity extends Activity{
+public class ResponseListActivity extends Activity {
 	
 	   // URL Address
 	   ProgressDialog mProgressDialog;
 	   Gson gson = new Gson();
 	   Recipy recipy = new Recipy();
+	   List<Recipy> recipyList = new ArrayList<Recipy>();
 	   String keyword = "";
 	   String prepareTime = "";
 	   String portions = "";
@@ -38,18 +43,23 @@ public class ResponseListActivity extends Activity{
 	   String diet = "";
 	   String recipeCousine = "";
 	   String ocasion = "";
+
+	   private ListView listView;
+	   private ArrayList<String> list = new ArrayList<String>();
+//	   private ItemAdapter m_adapter;
+	   private ArrayAdapter<String> adapter;
 	   
 
 	   @Override
 	   public void onCreate(Bundle savedInstanceState) {
-	       super.onCreate(savedInstanceState);
-		    getWindow().requestFeature(Window.FEATURE_ACTION_BAR); // Add this line
-		    ActionBar actionBar = getActionBar();
-		    actionBar.show();
-		    getActionBar().setIcon(R.drawable.chef);     
-		    getActionBar().setTitle("Super Chef");
-		    getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_background)); 
-	       setContentView(R.layout.response_list);
+		   super.onCreate(savedInstanceState);
+		   getWindow().requestFeature(Window.FEATURE_ACTION_BAR); // Add this line
+		   ActionBar actionBar = getActionBar();
+		   actionBar.show();
+		   getActionBar().setIcon(R.drawable.chef);     
+		   getActionBar().setTitle("Super Chef");
+		   getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_background)); 
+		   setContentView(R.layout.response_list);
 	       
 	       Intent intent = getIntent();
 	       
@@ -64,11 +74,11 @@ public class ResponseListActivity extends Activity{
 	       
 	       new JsonRecipyResult().execute();
 
-
 	   }
 
 	   private class JsonRecipyResult extends AsyncTask<Void, Void, Void> {
 		  
+		   String url = "http://superchef.herokuapp.com/receitas/busca?";
 
 	       @Override
 	       protected void onPreExecute() {
@@ -81,31 +91,33 @@ public class ResponseListActivity extends Activity{
 
 	       @Override
 	       protected Void doInBackground(Void... params) {
-	    	   String url = "http://superchef.herokuapp.com/receitas";
 	    	   if(!keyword.equals("")){
-	    		   url += "titulo=" + keyword;
-	    	   }else if(!prepareTime.equals("")){
-	    		   url += "tempoPreparo=" + prepareTime;
-	    	   }else if(!portions.equals("")){
-	    		   url += "porcoes=" + portions;
-	    	   }else if(!cookType.equals("Tipo de comida")){
-	    		   url += "tipo=" + cookType;
-	    	   }else if(!prepareMode.equals("Tipo de comida")){
-	    		   url += "modoPreparo=" + prepareMode;
-	    	   }else if(!diet.equals("Dieta")){
-	    		   url += "dieta=" + diet;
-	    	   }else if(!recipeCousine.equals("Cozinha da receita")){
-	    		   url += "cozinha=" + recipeCousine;
-	    	   }else if(!ocasion.equals("Ocasião")){
-	    		   url += "ocasiao=" + ocasion;
+	    		   url += "titulo=" + keyword.replaceAll("[ ]", "%20") + "&";
+	    	   }
+	    	   if(!prepareTime.equals("")){
+	    		   url += "tempoPreparo=" + prepareTime + "&";
+	    	   }
+	    	   if(!portions.equals("")){
+	    		   url += "porcoes=" + portions + "&";
+	    	   }
+	    	   if(!cookType.equals("Tipo de comida")){
+	    		   url += "tipo=" + cookType.replaceAll("[ ]", "%20") + "&";
+	    	   }
+	    	   if(!prepareMode.equals("Modo de preparo")){
+	    		   url += "modoPreparo=" + prepareMode.replaceAll("[ ]", "%20") + "&";
+	    	   }
+	    	   if(!diet.equals("Dieta")){
+	    		   url += "dieta=" + diet.replaceAll("[ ]", "%20") + "&";
+	    	   }
+	    	   if(!recipeCousine.equals("Cozinha da receita")){
+	    		   url += "cozinha=" + recipeCousine + "&";
+	    	   }
+	    	   if(!ocasion.equals("Ocasião")){
+	    		   url += "ocasiao=" + ocasion.replaceAll("[ ]", "%20");
 	    	   }
 	    	   java.lang.reflect.Type arrayListType = new TypeToken<ArrayList<Recipy>>(){}.getType();
-	    	   List<Recipy> recipyList = new ArrayList<Recipy>();
-	    	   
 	    	   
 	    	   recipyList = gson.fromJson(JsonFromUrl.getJson(url), arrayListType);
-	    	    
-	    	   recipy = recipyList.get(0);
 
 	    	   return null;
 	       }
@@ -113,32 +125,66 @@ public class ResponseListActivity extends Activity{
 
        @Override
        protected void onPostExecute(Void result) {
-
-    	    TextView recipyName = (TextView) findViewById(R.id.recipy_name);
-			TextView prepareMode = (TextView) findViewById(R.id.prepare_mode);
-			TextView portions = (TextView) findViewById(R.id.portions);
-			TextView time = (TextView) findViewById(R.id.time);
-			ListView ingredients = (ListView) findViewById(R.id.ingredients);
-			ListView tags = (ListView) findViewById(R.id.tags);
-		   
-			recipyName.setText(recipy.getTitulo());
-			prepareMode.setText(recipy.getModoPreparo());
-			portions.setText(((Integer)(recipy.getPorcoes())).toString());
-			time.setText(((Integer)(recipy.getMinDuracao())).toString());
-			List<String> ingredientsList = new ArrayList<String>();
-		   
-			for (Ingredientes ingredientes : recipy.getIngredientes()) {
-			   ingredientsList.add(ingredientes.getNome());
-			}
-			ingredients.setAdapter(new ArrayAdapter<String>(ResponseListActivity.this, android.R.layout.simple_list_item_1, ingredientsList));
-			tags.setAdapter(new ArrayAdapter<String>(ResponseListActivity.this, android.R.layout.simple_list_item_1, recipy.getTags()));
-		   
-		
-			mProgressDialog.dismiss();
-
+    	   
+    	   for (Recipy recipy : recipyList) {
+//			   ItemList item = new ItemList(recipy.getImageUrl(), recipy.getTitulo());
+			   list.add(recipy.getTitulo());
+		   }
+    	   
+    	   listView = (ListView) findViewById(R.id.RecipesList);
+ 
+    	   adapter = new ArrayAdapter<String>(ResponseListActivity.this, android.R.layout.simple_list_item_1, list);
+    	   
+//    	   m_adapter = new ItemAdapter(ResponseListActivity.this, R.layout.row_layout, m_parts);
            
+    	   listView.setAdapter(adapter);
+    	   listView.setOnItemClickListener(new OnItemClickListener() {
+    		   public void onItemClick(AdapterView<?> parent, View view,int position, long id){
+    			   String selectedFromList = (listView.getItemAtPosition(position).toString());
+    			   Recipy recipeToIntent = null;
+    			   for (Recipy recipy : recipyList) {
+    		        	 if(recipy.getTitulo().equals(selectedFromList)){
+    		        		 recipeToIntent = recipy;
+    		        		 break;
+    		        	 }
+    			   }
+    			   ArrayList<String> ingredientsNameList = new ArrayList<String>();
+    			   for (Ingredientes ingredientes : recipeToIntent.getIngredientes()) {
+    				   ingredientsNameList.add(ingredientes.getNome());
+    			   }
+    			   
+    			   String minutos = "";
+    			   String porcoes = "";
+    			   if(recipeToIntent.getMinDuracao() != 0){
+    				   minutos = String.valueOf(recipeToIntent.getMinDuracao()) + " minutos";
+    			   }else{
+    				   minutos = "Tempo indisponível";
+    			   }
+    			   
+    			   if(recipeToIntent.getPorcoes() != 0){
+    				   porcoes = String.valueOf(recipeToIntent.getPorcoes() ) + " porções";
+    			   }else{
+    				   porcoes = "Porções indisponível";
+    			   }
+
+    			  
+    			   
+    			   Intent intent = new Intent(ResponseListActivity.this, RecipePageActivity.class);
+    			   intent.putExtra("title", recipeToIntent.getTitulo());
+    			   intent.putExtra("imageUrl", recipeToIntent.getImageUrl());
+    			   intent.putExtra("minDuracao", minutos);
+    			   intent.putExtra("porcoes", porcoes);
+    			   intent.putStringArrayListExtra("ingredientes", ingredientsNameList);
+    			   intent.putExtra("modoPreparo", recipeToIntent.getModoPreparo());
+    			   startActivity(intent);
+    			   
+    			   
+    		   }});
+    	   
+			mProgressDialog.dismiss();           
        }
    }
+	   
 	   
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
