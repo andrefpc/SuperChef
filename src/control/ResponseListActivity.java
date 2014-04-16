@@ -45,7 +45,7 @@ public class ResponseListActivity extends Activity {
 	   String ocasion = "";
 
 	   private ListView listView;
-	   private ArrayList<String> list = new ArrayList<String>();
+	   private ArrayList<String> listRecipeName = new ArrayList<String>();
 //	   private ItemAdapter m_adapter;
 	   private ArrayAdapter<String> adapter;
 	   
@@ -125,30 +125,23 @@ public class ResponseListActivity extends Activity {
 
        @Override
        protected void onPostExecute(Void result) {
-    	   
+    	   final List<Recipy> responseList = new ArrayList<Recipy>();
     	   for (Recipy recipy : recipyList) {
-//			   ItemList item = new ItemList(recipy.getImageUrl(), recipy.getTitulo());
-			   list.add(recipy.getTitulo());
+			   listRecipeName.add(recipy.getTitulo());
+			   responseList.add(recipy);
 		   }
     	   
     	   listView = (ListView) findViewById(R.id.RecipesList);
  
-    	   adapter = new ArrayAdapter<String>(ResponseListActivity.this, android.R.layout.simple_list_item_1, list);
-    	   
-//    	   m_adapter = new ItemAdapter(ResponseListActivity.this, R.layout.row_layout, m_parts);
+    	   adapter = new ArrayAdapter<String>(ResponseListActivity.this, android.R.layout.simple_list_item_1, listRecipeName);
            
     	   listView.setAdapter(adapter);
+    	   
     	   listView.setOnItemClickListener(new OnItemClickListener() {
     		   public void onItemClick(AdapterView<?> parent, View view,int position, long id){
-    			   String selectedFromList = (listView.getItemAtPosition(position).toString());
-    			   Recipy recipeToIntent = null;
-    			   for (Recipy recipy : recipyList) {
-    		        	 if(recipy.getTitulo().equals(selectedFromList)){
-    		        		 recipeToIntent = recipy;
-    		        		 break;
-    		        	 }
-    			   }
+    			   Recipy recipeToIntent = responseList.get(position);
     			   ArrayList<String> ingredientsNameList = new ArrayList<String>();
+    			   
     			   for (Ingredientes ingredientes : recipeToIntent.getIngredientes()) {
     				   ingredientsNameList.add(ingredientes.getNome());
     			   }
