@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">SuperChef</string>
+	<!-- Menu Strings -->
 	<string name="action_settings">Settings</string>
+	<string name="action_rateapp">Rate App</string>
+	<string name="action_refresh">Refresh</string>
 	<string name="hello_world">Hello world!</string>
 	<string name="title_activity_main">MainActivity</string>
 	<string name="type_your_name">Digite seu nome</string>
@@ -14,4 +17,26 @@
 	<string name="portions">Número de porções</string>
 	<string name="ingredients">Ingredientes:</string>
 	<string name="prepMode">Modo de preparo:</string>
+	<string name="favoritar">Favoritar Receita</string>
+	<!-- Navigation Drawer Menu Items -->
+	<string-array name="nav_drawer_items">
+		<item>Home</item>
+		<item>Buscar</item>
+		<item>Favoritos</item>
+		<item>Trocar Info</item>
+		<item>Cronômetro</item>
+	</string-array>
+	<!-- List Item Icons(Images) with strings(text of company name) -->
+	<!-- Keep them with titles array accordingly -->
+	<array name="nav_drawer_icons">
+		<item>@drawable/sys_home</item>
+		<item>@drawable/sys_magnifyglass</item>
+		<item>@drawable/misc_star_full</item>
+		<item>@drawable/ics_settings</item>
+		<item>@drawable/sys_stopwatch</item>
+	</array>
+	<!-- drawer_list_item Imageview Description -->
+	<string name="description_list_icon">Item Icon</string>
+	<string name="drawer_open">Open navigation drawer</string>
+	<string name="drawer_close">Close navigation drawer</string>
 </resources>

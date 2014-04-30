@@ -7,9 +7,7 @@
 		android:minSdkVersion="14"
 		android:targetSdkVersion="18" />
 	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.CALL_PHONE" />
 	<application
 		android:allowBackup="true"
 		android:icon="@drawable/ic_launcher"
@@ -17,19 +15,48 @@
 		android:theme="@style/app_theme" >
 		<activity
 			android:name="control.MainActivity"
-			android:label="@string/app_name" >
+			android:label="@string/app_name"
+			android:screenOrientation="portrait" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name="control.AddUserInfoActivity" >
+		<activity
+			android:name="control.AddUserInfoActivity"
+			android:screenOrientation="portrait" >
 		</activity>
-		<activity android:name="control.SearchRecipyActivity" >
+		<activity
+			android:name="control.SearchRecipyActivity"
+			android:screenOrientation="portrait" >
 		</activity>
-		<activity android:name="control.ResponseListActivity" >
+		<activity
+			android:name="control.ResponseListActivity"
+			android:screenOrientation="portrait" >
 		</activity>
-		<activity android:name="control.RecipePageActivity" >
+		<activity
+			android:name="control.RecipePageActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="control.RecomendationRecipesActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="control.FavoriteActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="control.ChronometerActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="control.BasicActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="control.NoConectionActivity"
+			android:screenOrientation="portrait" >
 		</activity>
 	</application>
 </manifest>

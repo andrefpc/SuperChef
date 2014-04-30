@@ -1,74 +1,107 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="UTF-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/drawer_layout"
 	android:layout_width="match_parent"
-	android:layout_height="wrap_content" >
-	<TextView
-		android:id="@+id/title"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:textAppearance="?android:attr/textAppearanceLarge" />
-	<ImageView
-		android:id="@+id/image"
-		android:layout_width="100dp"
-		android:layout_height="100dp"
-		android:layout_below="@+id/title"
-		android:src="@drawable/no_image" />
-	<RelativeLayout
+	android:layout_height="match_parent" ><RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/title"
-		android:layout_toRightOf="@+id/image" >
+		android:layout_height="wrap_content" >
 		<TextView
-			android:id="@+id/portion"
+			android:id="@+id/title"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_centerHorizontal="true"
-			android:layout_marginTop="20dp"
-			android:textAppearance="?android:attr/textAppearanceMedium" />
-		<TextView
-			android:id="@+id/prepareTime"
+			android:textAppearance="?android:attr/textAppearanceLarge" />
+		<ImageView
+			android:id="@+id/image"
+			android:layout_width="100dp"
+			android:layout_height="100dp"
+			android:layout_below="@+id/title"
+			android:src="@drawable/no_image" />
+		<RelativeLayout
+			android:id="@+id/relativeLayout1"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/title"
+			android:layout_toRightOf="@+id/image" >
+			<TextView
+				android:id="@+id/portion"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerHorizontal="true"
+				android:textAppearance="?android:attr/textAppearanceMedium" />
+			<TextView
+				android:id="@+id/prepareTime"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/portion"
+				android:layout_centerHorizontal="true"
+				android:textAppearance="?android:attr/textAppearanceMedium" />
+			<Button
+				android:id="@+id/favoriteButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/prepareTime"
+				android:layout_centerHorizontal="true"
+				android:text="@string/favoritar" />
+		</RelativeLayout>
+		<RatingBar
+			android:id="@+id/rating"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_below="@+id/portion"
+			android:layout_below="@+id/image" />
+		<TextView
+			android:id="@+id/titleIngredients"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/rating"
 			android:layout_centerHorizontal="true"
+			android:text="@string/ingredients"
 			android:textAppearance="?android:attr/textAppearanceMedium" />
+		<ListView
+			android:id="@+id/ingredientsList"
+			android:layout_width="match_parent"
+			android:layout_height="150dp"
+			android:layout_below="@+id/titleIngredients"
+			android:background="@drawable/list_backgroud" />
+		<TextView
+			android:id="@+id/titlePrepMode"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/ingredientsList"
+			android:layout_centerHorizontal="true"
+			android:text="@string/prepMode"
+			android:textAppearance="?android:attr/textAppearanceMedium" />
+		<ScrollView
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_below="@+id/titlePrepMode"
+			android:background="@drawable/list_backgroud" >
+			<TextView
+				android:id="@+id/prepareMode"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium" />
+		</ScrollView>
+		<ImageButton
+			android:id="@+id/button1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBottom="@+id/relativeLayout1"
+			android:layout_alignParentRight="true"
+			android:background="@null"
+			android:onClick="speakText"
+			android:src="@drawable/megafone_icon" />
 	</RelativeLayout>
-	<RatingBar
-		android:id="@+id/rating"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/image" />
-	<TextView
-		android:id="@+id/titleIngredients"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/rating"
-		android:layout_centerHorizontal="true"
-		android:text="@string/ingredients"
-		android:textAppearance="?android:attr/textAppearanceMedium" />
+	<!-- The navigation drawer -->
 	<ListView
-		android:id="@+id/ingredientsList"
-		android:layout_width="match_parent"
-		android:layout_height="150dp"
-		android:layout_below="@+id/titleIngredients"
-		android:background="@drawable/list_backgroud" />
-	<TextView
-		android:id="@+id/titlePrepMode"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/ingredientsList"
-		android:layout_centerHorizontal="true"
-		android:text="@string/prepMode"
-		android:textAppearance="?android:attr/textAppearanceMedium" />
-	<ScrollView
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_below="@+id/titlePrepMode"
-		android:background="@drawable/list_backgroud" >
-		<TextView
-			android:id="@+id/prepareMode"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium" />
-	</ScrollView>
-</RelativeLayout>
+		android:id="@+id/left_drawer"
+		android:layout_width="240dp"
+		android:layout_height="match_parent"
+		android:layout_gravity="start"
+		android:background="#111"
+		android:choiceMode="singleChoice"
+		android:divider="@android:color/transparent"
+		android:dividerHeight="0dp" />
+</android.support.v4.widget.DrawerLayout>
+
+

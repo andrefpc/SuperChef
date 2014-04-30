@@ -12,10 +12,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 public class JsonFromUrl {
 	public static String getJson(String url){
-		
+
 		InputStream is = null;
 		String result = "";
-		
+
 		// HTTP
 		try {	    	
 			HttpClient httpclient = new DefaultHttpClient(); // for port 80 requests!
@@ -26,7 +26,7 @@ public class JsonFromUrl {
 		} catch(Exception e) {
 			return null;
 		}
-	    
+
 		// Read response to string
 		try {	    	
 			BufferedReader reader = new BufferedReader(new InputStreamReader(is,"utf-8"),8);

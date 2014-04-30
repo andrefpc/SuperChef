@@ -3,14 +3,9 @@ package control;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,20 +17,23 @@ import domain.CookTypeEnum;
 import domain.DietEnum;
 import domain.OcasionEnum;
 import domain.PrepareModeEnum;
-import domain.RecipyCousineEnum;
+import domain.RecipeCousineEnum;
 
-public class SearchRecipyActivity extends Activity {
+public class SearchRecipyActivity extends BasicActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	    getWindow().requestFeature(Window.FEATURE_ACTION_BAR); // Add this line
-	    ActionBar actionBar = getActionBar();
-	    actionBar.show();
-	    getActionBar().setIcon(R.drawable.chef);     
-	    getActionBar().setTitle("Super Chef");
-	    getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_background)); 
-		setContentView(R.layout.search);
+		super.onCreate(savedInstanceState);		
+		menuOptions();
+		setContentView(R.layout.search);	
+		
+		if(!conectado(SearchRecipyActivity.this)){
+			Intent intent = new Intent(SearchRecipyActivity.this, NoConectionActivity.class);
+			startActivity(intent);
+			finish();
+		}
+		
+		leftMenu();
 		
 		final EditText keyword = (EditText) findViewById(R.id.keyword_text);
 		final EditText prepareTime = (EditText) findViewById(R.id.prepareTime_text);
@@ -56,7 +54,7 @@ public class SearchRecipyActivity extends Activity {
 		for (DietEnum diet : DietEnum.values()) {
 			dietList.add(diet.getName());
 		}
-		for (RecipyCousineEnum recipyCousine : RecipyCousineEnum.values()) {
+		for (RecipeCousineEnum recipyCousine : RecipeCousineEnum.values()) {
 			recipyCousineList.add(recipyCousine.getName());
 		}
 		for (OcasionEnum ocasion : OcasionEnum.values()) {
@@ -126,25 +124,6 @@ public class SearchRecipyActivity extends Activity {
 	            
 			}
 		});
-	}
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item){
-		if(item.getItemId() == R.id.changeInfo){
-			Intent intent = new Intent(this, AddUserInfoActivity.class);
-			startActivity(intent);
-		}
-		if(item.getItemId() == R.id.search){
-			Intent intent = new Intent(this, SearchRecipyActivity.class);
-			startActivity(intent);
-		}
-		return super.onOptionsItemSelected(item);
 	}
 }
 

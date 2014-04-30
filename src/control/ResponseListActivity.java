@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import service.JsonFromUrl;
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -23,18 +18,18 @@ import com.example.sharedprefs.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import domain.Ingredientes;
-import domain.Recipy;
+import domain.Ingrediente;
+import domain.Recipe;
 //import service.ItemAdapter;
 //import domain.ItemList;
 
-public class ResponseListActivity extends Activity {
+public class ResponseListActivity extends BasicActivity {
 	
 	   // URL Address
 	   ProgressDialog mProgressDialog;
 	   Gson gson = new Gson();
-	   Recipy recipy = new Recipy();
-	   List<Recipy> recipyList = new ArrayList<Recipy>();
+	   Recipe recipy = new Recipe();
+	   List<Recipe> recipyList = new ArrayList<Recipe>();
 	   String keyword = "";
 	   String prepareTime = "";
 	   String portions = "";
@@ -52,14 +47,11 @@ public class ResponseListActivity extends Activity {
 
 	   @Override
 	   public void onCreate(Bundle savedInstanceState) {
-		   super.onCreate(savedInstanceState);
-		   getWindow().requestFeature(Window.FEATURE_ACTION_BAR); // Add this line
-		   ActionBar actionBar = getActionBar();
-		   actionBar.show();
-		   getActionBar().setIcon(R.drawable.chef);     
-		   getActionBar().setTitle("Super Chef");
-		   getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_background)); 
+		   super.onCreate(savedInstanceState);		   
+		   menuOptions();
 		   setContentView(R.layout.response_list);
+
+		   leftMenu();
 	       
 	       Intent intent = getIntent();
 	       
@@ -115,7 +107,7 @@ public class ResponseListActivity extends Activity {
 	    	   if(!ocasion.equals("Ocasião")){
 	    		   url += "ocasiao=" + ocasion.replaceAll("[ ]", "%20");
 	    	   }
-	    	   java.lang.reflect.Type arrayListType = new TypeToken<ArrayList<Recipy>>(){}.getType();
+	    	   java.lang.reflect.Type arrayListType = new TypeToken<ArrayList<Recipe>>(){}.getType();
 	    	   
 	    	   recipyList = gson.fromJson(JsonFromUrl.getJson(url), arrayListType);
 
@@ -125,8 +117,8 @@ public class ResponseListActivity extends Activity {
 
        @Override
        protected void onPostExecute(Void result) {
-    	   final List<Recipy> responseList = new ArrayList<Recipy>();
-    	   for (Recipy recipy : recipyList) {
+    	   final List<Recipe> responseList = new ArrayList<Recipe>();
+    	   for (Recipe recipy : recipyList) {
 			   listRecipeName.add(recipy.getTitulo());
 			   responseList.add(recipy);
 		   }
@@ -139,10 +131,10 @@ public class ResponseListActivity extends Activity {
     	   
     	   listView.setOnItemClickListener(new OnItemClickListener() {
     		   public void onItemClick(AdapterView<?> parent, View view,int position, long id){
-    			   Recipy recipeToIntent = responseList.get(position);
+    			   Recipe recipeToIntent = responseList.get(position);
     			   ArrayList<String> ingredientsNameList = new ArrayList<String>();
     			   
-    			   for (Ingredientes ingredientes : recipeToIntent.getIngredientes()) {
+    			   for (Ingrediente ingredientes : recipeToIntent.getIngredientes()) {
     				   ingredientsNameList.add(ingredientes.getNome());
     			   }
     			   
@@ -177,26 +169,5 @@ public class ResponseListActivity extends Activity {
 			mProgressDialog.dismiss();           
        }
    }
-	   
-	   
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item){
-		if(item.getItemId() == R.id.changeInfo){
-			Intent intent = new Intent(this, AddUserInfoActivity.class);
-			startActivity(intent);
-		}
-		if(item.getItemId() == R.id.search){
-			Intent intent = new Intent(this, SearchRecipyActivity.class);
-			startActivity(intent);
-		}
-		return super.onOptionsItemSelected(item);
-	}
 
 }

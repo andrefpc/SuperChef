@@ -2,15 +2,33 @@
 	android:layout_width="match_parent"
 	android:layout_gravity="center_horizontal" >
 	<item
-		android:id="@+id/favorite"
-		android:icon="@drawable/misc_star_full"
+		android:id="@+id/home"
+		android:icon="@drawable/sys_home"
+		android:orderInCategory="1"
 		android:showAsAction="ifRoom"/>
 	<item
 		android:id="@+id/search"
 		android:icon="@drawable/sys_magnifyglass"
+		android:orderInCategory="2"
 		android:showAsAction="ifRoom"/>
-	<item
-		android:id="@+id/changeInfo"
-		android:icon="@drawable/ics_settings"
-		android:showAsAction="ifRoom"/>
+	<!-- <item -->
+	<!-- android:id="@+id/menuDropDown" -->
+	<!-- android:icon="@drawable/sys_stack" -->
+	<!-- android:orderInCategory="3" -->
+	<!-- android:showAsAction="ifRoom"> -->
+	<!-- <menu> -->
+	<!-- <item -->
+	<!-- android:id="@+id/favorite" -->
+	<!-- android:icon="@drawable/misc_star_full" -->
+	<!-- android:showAsAction="ifRoom"/> -->
+	<!-- <item -->
+	<!-- android:id="@+id/changeInfo" -->
+	<!-- android:icon="@drawable/ics_settings" -->
+	<!-- android:showAsAction="ifRoom"/> -->
+	<!-- <item -->
+	<!-- android:id="@+id/chronometer" -->
+	<!-- android:icon="@drawable/sys_stopwatch" -->
+	<!-- android:showAsAction="ifRoom"/> -->
+	<!-- </menu> -->
+	<!-- </item> -->
 </menu>

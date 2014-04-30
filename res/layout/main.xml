@@ -1,42 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/drawer_layout"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent" >
-	<TextView
-		android:id="@+id/name"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		android:layout_marginTop="80dp" />
-	<TextView
-		android:id="@+id/nickname"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		android:layout_marginTop="140dp" />
-	<TextView
-		android:id="@+id/diet"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		android:layout_marginTop="200dp" />
-	<TextView
-		android:id="@+id/cookType"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		android:layout_marginTop="260dp" />
-	<TextView
-		android:id="@+id/recipyCousine"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		android:layout_marginTop="320dp" />
-	<Button
-		android:id="@+id/add_info"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		android:layout_marginTop="380dp" />
-</RelativeLayout>
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" >
+		<TextView
+			android:id="@+id/name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="80dp" />
+		<Button
+			android:id="@+id/add_info"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="380dp" />
+	</RelativeLayout>
+	<!-- The navigation drawer -->
+	<ListView
+		android:id="@+id/left_drawer"
+		android:layout_width="240dp"
+		android:layout_height="match_parent"
+		android:layout_gravity="start"
+		android:background="#111"
+		android:choiceMode="singleChoice"
+		android:divider="@android:color/transparent"
+		android:dividerHeight="0dp" />
+</android.support.v4.widget.DrawerLayout>
