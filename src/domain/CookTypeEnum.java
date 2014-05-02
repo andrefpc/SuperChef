@@ -2,7 +2,7 @@ package domain;
 
 public enum CookTypeEnum {
 
-	UNKNOWN(0,"Tipo de comida"),ACOMPANHAMENTOS(1, "Acompanhamentos"), AVES(2, "Aves"), BEBIDAS(3,
+	UNKNOWN(0,"Todos"),ACOMPANHAMENTOS(1, "Acompanhamentos"), AVES(2, "Aves"), BEBIDAS(3,
 			"Bebidas"), CARNES(4, "Carnes"), DOCESESOBREMESAS(5,
 			"Doces e Sobremesas"), ENTRADAS(6, "Entradas"), LANCHES(7,
 			"Lanches"), MASSAS(8, "Massas"), MOLHOS(9, "Molhos"), PAESESALGADOS(

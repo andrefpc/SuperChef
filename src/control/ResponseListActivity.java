@@ -92,19 +92,19 @@ public class ResponseListActivity extends BasicActivity {
 	    	   if(!portions.equals("")){
 	    		   url += "porcoes=" + portions + "&";
 	    	   }
-	    	   if(!cookType.equals("Tipo de comida")){
+	    	   if(!cookType.equals("Todos")){
 	    		   url += "tipo=" + cookType.replaceAll("[ ]", "%20") + "&";
 	    	   }
-	    	   if(!prepareMode.equals("Modo de preparo")){
+	    	   if(!prepareMode.equals("Todos")){
 	    		   url += "modoPreparo=" + prepareMode.replaceAll("[ ]", "%20") + "&";
 	    	   }
-	    	   if(!diet.equals("Dieta")){
+	    	   if(!diet.equals("Todos")){
 	    		   url += "dieta=" + diet.replaceAll("[ ]", "%20") + "&";
 	    	   }
-	    	   if(!recipeCousine.equals("Cozinha da receita")){
+	    	   if(!recipeCousine.equals("Todos")){
 	    		   url += "cozinha=" + recipeCousine + "&";
 	    	   }
-	    	   if(!ocasion.equals("Ocasião")){
+	    	   if(!ocasion.equals("Todos")){
 	    		   url += "ocasiao=" + ocasion.replaceAll("[ ]", "%20");
 	    	   }
 	    	   java.lang.reflect.Type arrayListType = new TypeToken<ArrayList<Recipe>>(){}.getType();

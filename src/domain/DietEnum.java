@@ -2,7 +2,7 @@ package domain;
 
 public enum DietEnum {
 
-	UNKNOWN(0,"Dieta"),BAIXOCOLESTEROL(1, "Baixo Colesterol"), BAIXOSODIO(2, "Baixo Sódio"), DIET(
+	UNKNOWN(0,"Todos"),BAIXOCOLESTEROL(1, "Baixo Colesterol"), BAIXOSODIO(2, "Baixo Sódio"), DIET(
 			3, "Diet"), KOSHER(4, "Kosher"), LIGHT(5, "Light"), MACROBIOTICA(6,
 			"Macrobiótica"), SAUDAVEL(7, "Saudável"), SEMGLUTEN(8, "Sem Glutén"), SEMLACTOSE(
 			9, "Sem Lactose"), VEGETARIANA(10, "Vegetariana");
