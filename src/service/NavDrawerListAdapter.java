@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.sharedprefs.R;
+import com.superchef.R;
 
 import domain.NavDrawerItem;
 

@@ -3,6 +3,7 @@ package control;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -12,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.sharedprefs.R;
+import com.superchef.R;
 
 import domain.CookTypeEnum;
 import domain.DietEnum;
@@ -32,8 +33,13 @@ public class AddUserInfoActivity extends BasicActivity {
 		
 		prefs = getSharedPreferences(APP_PREFS, MODE_PRIVATE);
 		
+		String userNamePrefs = prefs.getString(USERNAME_KEY, null);
+		String dietPrefs = prefs.getString(DIET_KEY, null);
+		String cookTypePrefs = prefs.getString(COOKTYPE_KEY, null);
+		String recipyCousinePrefs = prefs.getString(RECIPYCOUSINE_KEY, null);
+		
 		final EditText name = (EditText) findViewById(R.id.name_edit_text);
-		final EditText nick = (EditText) findViewById(R.id.nick_edit_text);
+		name.setText(userNamePrefs);
 		
 		List<String> dietList = new ArrayList<String>();
 		List<String> cookTypeList = new ArrayList<String>();
@@ -52,16 +58,22 @@ public class AddUserInfoActivity extends BasicActivity {
         ArrayAdapter<String> dietAdapter = new ArrayAdapter<String>(this,
         android.R.layout.simple_spinner_item, dietList);
         dietSpinner.setAdapter(dietAdapter);
+        int indexDiet = DietEnum.getByName(dietPrefs);
+        dietSpinner.setSelection(indexDiet);
         
         Spinner cookTypeSpinner = (Spinner) findViewById(R.id.cookTypeSpinner);
         ArrayAdapter<String> cookTypeAdapter = new ArrayAdapter<String>(this,
         android.R.layout.simple_spinner_item, cookTypeList);
         cookTypeSpinner.setAdapter(cookTypeAdapter);
+        int indexCookType = CookTypeEnum.getByName(cookTypePrefs);
+        cookTypeSpinner.setSelection(indexCookType);
         
         Spinner recipyCousineSpinner = (Spinner) findViewById(R.id.recipyCousineSpinner);
         ArrayAdapter<String> recipyCousineAdapter = new ArrayAdapter<String>(this,
         android.R.layout.simple_spinner_item, recipyCousineList);
         recipyCousineSpinner.setAdapter(recipyCousineAdapter);
+        int indexCousine = RecipeCousineEnum.getByName(recipyCousinePrefs);
+        recipyCousineSpinner.setSelection(indexCousine);
         
         
         Button saveButton = (Button) findViewById(R.id.add_name_button);
@@ -70,7 +82,6 @@ public class AddUserInfoActivity extends BasicActivity {
 			@Override
 			public void onClick(View v) {
 				String userName = name.getEditableText().toString();
-				String nickName = nick.getEditableText().toString();
 				
 				Spinner dietSp = (Spinner) findViewById(R.id.dietSpinner);
 	            String dietSpinnerString = dietSp.getSelectedItem().toString();
@@ -83,12 +94,17 @@ public class AddUserInfoActivity extends BasicActivity {
 	            
 				
 				Editor editor = prefs.edit();
-				editor.putString(MainActivity.USERNAME_KEY, userName);
-				editor.putString(MainActivity.NICKNAME_KEY, nickName);
-				editor.putString(MainActivity.DIET_KEY, dietSpinnerString);
-				editor.putString(MainActivity.COOKTYPE_KEY, cookTypeSpinnerString);
-				editor.putString(MainActivity.RECIPYCOUSINE_KEY, recipyCousineSpinnerString);
+				editor.putString(USERNAME_KEY, userName);
+				editor.putString(DIET_KEY, dietSpinnerString);
+				editor.putString(COOKTYPE_KEY, cookTypeSpinnerString);
+				editor.putString(RECIPYCOUSINE_KEY, recipyCousineSpinnerString);
 				editor.commit();
+				Intent intent = new Intent(AddUserInfoActivity.this, RecomendationRecipesActivity.class);
+				intent.putExtra("cookType", cookTypeSpinnerString);
+				intent.putExtra("diet", dietSpinnerString);
+				intent.putExtra("recipyCousine", recipyCousineSpinnerString);
+				intent.putExtra("name", userName);
+				startActivity(intent);
 				finish();
 			}
 		});

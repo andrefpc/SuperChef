@@ -23,10 +23,9 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.sharedprefs.R;
+import com.superchef.R;
 
 import domain.NavDrawerItem;
 
@@ -45,7 +44,6 @@ public class BasicActivity extends Activity{
 
 	final static String APP_PREFS = "app_prefs";
 	final static String USERNAME_KEY = "username";
-	final static String NICKNAME_KEY = "nickname";
 	final static String DIET_KEY = "diet";
 	final static String COOKTYPE_KEY = "cookType";
 	final static String RECIPYCOUSINE_KEY = "recipyCousine";
@@ -61,7 +59,7 @@ public class BasicActivity extends Activity{
 	    getWindow().requestFeature(Window.FEATURE_ACTION_BAR); // Add this line
 	    ActionBar actionBar = getActionBar();
 	    actionBar.show();
-	    getActionBar().setIcon(R.drawable.chef);     
+	    getActionBar().setIcon(R.drawable.super_chef_icon);     
 	    getActionBar().setTitle("Super Chef");
 	    getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_background)); 
 

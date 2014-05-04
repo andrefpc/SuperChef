@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.sharedprefs.R;
+import com.superchef.R;
 
 public class MainActivity extends BasicActivity {
 
@@ -25,7 +25,6 @@ public class MainActivity extends BasicActivity {
 		
 		SharedPreferences prefs = getSharedPreferences(APP_PREFS, MODE_PRIVATE);
 		String userName = prefs.getString(USERNAME_KEY, null);
-		String nickName = prefs.getString(NICKNAME_KEY, null);
 		String diet = prefs.getString(DIET_KEY, null);
 		String cookType = prefs.getString(COOKTYPE_KEY, null);
 		String recipyCousine = prefs.getString(RECIPYCOUSINE_KEY, null);
@@ -44,7 +43,7 @@ public class MainActivity extends BasicActivity {
 				recipyCousine = "";
 			}
 			if(!conectado(this)){
-				Intent intent = new Intent(this, FavoriteActivity.class);
+				Intent intent = new Intent(this, NoConectionActivity.class);
 				startActivity(intent);
 				finish();
 			}else{
@@ -59,8 +58,8 @@ public class MainActivity extends BasicActivity {
 		}else{
 			Button addInfoButton = (Button) findViewById(R.id.add_info);
 			
-			nameMessage.setText("Você ainda se cadastrou...");
-			addInfoButton.setText("Adicionar info");
+			nameMessage.setText("Vimos que você ainda se cadastrou suas informações...");
+			addInfoButton.setText("Cadastrar");
 			
 			addInfoButton.setOnClickListener(new View.OnClickListener() {
 				

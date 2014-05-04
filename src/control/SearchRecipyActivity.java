@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.sharedprefs.R;
+import com.superchef.R;
 
 import domain.CookTypeEnum;
 import domain.DietEnum;

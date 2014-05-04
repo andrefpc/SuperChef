@@ -1,11 +1,13 @@
 package domain;
 
+import android.graphics.Bitmap;
+
 public class ItemList {
 
-	private String imageUrl;
+	private Bitmap imageUrl;
 	private String title;
 	
-	public ItemList(String imageUrl, String title) {
+	public ItemList(Bitmap imageUrl, String title) {
 		super();
 		this.imageUrl = imageUrl;
 		this.title = title;
@@ -15,11 +17,11 @@ public class ItemList {
 		super();
 	}
 
-	public String getImageUrl() {
+	public Bitmap getImageUrl() {
 		return imageUrl;
 	}
 
-	public void setImageUrl(String imageUrl) {
+	public void setImageUrl(Bitmap imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 

@@ -1,6 +1,7 @@
 package control;
 
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 import repository.FavoriteDao;
+import repository.RatedDao;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,7 +27,7 @@ import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sharedprefs.R;
+import com.superchef.R;
 
 import domain.Ingrediente;
 import domain.Recipe;
@@ -42,8 +44,11 @@ public class RecipePageActivity extends BasicActivity{
 	String modoPreparo;		
 	Bitmap image;
 	
-	private FavoriteDao dao;
+	private FavoriteDao favoritDao;
+	private RatedDao ratedDao;
 	TextToSpeech ttobj;
+	
+	String ratingUrl;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,8 +58,11 @@ public class RecipePageActivity extends BasicActivity{
 		
 		leftMenu();
 	   
-	   dao = new FavoriteDao(this);
-	   dao.open();
+	   favoritDao = new FavoriteDao(this);
+	   favoritDao.open();
+	   
+	   ratedDao = new RatedDao(this);
+	   ratedDao.open();
 	   
 	   Intent intent = getIntent();
 	   
@@ -120,10 +128,18 @@ public class RecipePageActivity extends BasicActivity{
 		   ListView ingredientesView = (ListView) findViewById(R.id.ingredientsList);
 		   RatingBar ratingBar = (RatingBar) findViewById(R.id.rating);
 		   
-		   ratingBar.setOnRatingBarChangeListener(this);
+		   if(ratedDao.isRated(title)){
+			   ratingBar.setEnabled(false);
+			   ratingBar.setRating(Float.parseFloat(ratedDao.getRate(title)));
+		   }else{
+			   ratingBar.setEnabled(true);
+			   ratingBar.setOnRatingBarChangeListener(this);
+		   }
+		   
+		  
 		   
 		   Button favoriteButton = (Button) findViewById(R.id.favoriteButton);
-		   if(dao.isFavorite(title)){
+		   if(favoritDao.isFavorite(title)){
 			   favoriteButton.setEnabled(false);
 		   }else{
 			   favoriteButton.setEnabled(true);
@@ -159,8 +175,8 @@ public class RecipePageActivity extends BasicActivity{
 					   receita.setIngredientes(ingredientesList);
 					   receita.setModoPreparo(modoPreparo);
 					   
-					   dao.open();
-					   dao.create(receita);
+					   favoritDao.open();
+					   favoritDao.create(receita);
 					   
 					   finish();
 					   startActivity(getIntent());
@@ -184,18 +200,88 @@ public class RecipePageActivity extends BasicActivity{
 			@Override
 			public void onRatingChanged(RatingBar ratingBar, float rating,
 					boolean fromUser) {
+				
+				ratingUrl = "http://superchef.herokuapp.com/receitas/registro/rating/";
+				ratingUrl += title.replaceAll("[ ]", "%20");
+				ratingUrl += "/" + String.valueOf(rating*2);
+				
+				new SaveRating().execute();
+				
 				System.out.println("é esse rating: " + rating);
+				ratedDao.create(title, String.valueOf(rating));
+				finish();
+				startActivity(getIntent());
 			
 		}
    }
    
-	public void speakText(View view){
+   
+   
+   
+   
+   private class SaveRating extends AsyncTask<Void, Void, Void> {
+
+       @Override
+       protected void onPreExecute() {
+           super.onPreExecute();
+//           mProgressDialog = new ProgressDialog(RecipePageActivity.this);
+//           mProgressDialog.setMessage("Salvando rating...");
+//           mProgressDialog.setIndeterminate(false);
+//           mProgressDialog.show();
+       }
+
+       @Override
+       protected Void doInBackground(Void... params) {
+    	   try{
+				URL url = new URL(ratingUrl);
+				HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+				httpCon.setDoOutput(true);
+				httpCon.setRequestMethod("PUT");
+				OutputStreamWriter out = new OutputStreamWriter(
+				    httpCon.getOutputStream());
+				out.write("Resource content");
+				out.close();
+				httpCon.getInputStream();}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+    	   
+    	   return null;
+	
+       }
+	       
+	}
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+	public void speakPrepareModeText(View view){
 	      
 		String toSpeak = modoPreparo;
 		Toast.makeText(getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
 		ttobj.setSpeechRate((float) 0.7);
 		ttobj.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
 	
+	}
+	
+	public void speakIngredientesText(View view){
+		String ingredientesList="";
+	    for (String ingrediente : ingredientes) {
+	    	ingredientesList += ingrediente + "\n \n";
+	    }
+		String toSpeak = ingredientesList;
+		Toast.makeText(getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
+		ttobj.setSpeechRate((float) 0.7);
+		ttobj.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+		
 	}
    
 	@Override

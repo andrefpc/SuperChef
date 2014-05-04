@@ -31,5 +31,13 @@ public enum OcasionEnum {
 		}
 		return null;
 	}
+	
+	public static int getByName(String name) {
+		for (OcasionEnum e : values()) {
+			if (e.name.equals(name))
+				return e.id;
+		}
+		return 0;
+	}
 
 }

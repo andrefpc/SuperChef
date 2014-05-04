@@ -34,5 +34,12 @@ public enum CookTypeEnum {
 		}
 		return null;
 	}
+	public static int getByName(String name) {
+		for (CookTypeEnum e : values()) {
+			if (e.name.equals(name))
+				return e.id;
+		}
+		return 0;
+	}
 
 }

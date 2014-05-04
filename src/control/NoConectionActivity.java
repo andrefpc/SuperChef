@@ -3,7 +3,7 @@ package control;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.example.sharedprefs.R;
+import com.superchef.R;
 
 public class NoConectionActivity extends BasicActivity {
 	
@@ -21,7 +21,9 @@ public class NoConectionActivity extends BasicActivity {
 		super.onResume();
 		
 		TextView textMessage = (TextView) findViewById(R.id.text);
-		textMessage.setText("Desculpe, mais precisamos de internet para essa operação!");
+		textMessage.setText("Ops, vericamos um problema na conexão, sua internet pode estar instável " +
+				"ou você está desconectado. \n" +
+				"Por favor, verifique a conexão e tente novamente!");
 
 		
 	}

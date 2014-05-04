@@ -8,6 +8,7 @@ public class CustomSQLiteOpenHelper extends SQLiteOpenHelper{
 	
 	public static final String TABLE_RECIPE = "receita";
 	public static final String TABLE_INGREDIENTE = "ingrediente";
+	public static final String TABLE_RATED = "rated";
 	public static final String DATABASE_NAME = "receitas.db";
 	public static final int DATABASE_VERSION = 1;
 
@@ -27,6 +28,11 @@ public class CustomSQLiteOpenHelper extends SQLiteOpenHelper{
 			"CONSTRAINT ingrediente_receita_id_fkey FOREIGN KEY (receita_id) " +
 			"REFERENCES receita (id))";
 	
+	private static final String RATED_CREATE = "CREATE TABLE " + TABLE_RATED +
+			"(id integer primary key autoincrement , " +
+			"recipe_title text NOT NULL, " +
+			"rating real NOT NULL)";
+	
 	public CustomSQLiteOpenHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
@@ -35,12 +41,14 @@ public class CustomSQLiteOpenHelper extends SQLiteOpenHelper{
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(REDIPE_CREATE);
 		db.execSQL(INGREDINTE_CREATE);	
+		db.execSQL(RATED_CREATE);	
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPE);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_INGREDIENTE);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RATED);
 		onCreate(db);	
 	}
 

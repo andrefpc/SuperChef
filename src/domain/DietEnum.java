@@ -34,5 +34,13 @@ public enum DietEnum {
 		}
 		return null;
 	}
+	
+	public static int getByName(String name) {
+		for (DietEnum e : values()) {
+			if (e.name.equals(name))
+				return e.id;
+		}
+		return 0;
+	}
 
 }

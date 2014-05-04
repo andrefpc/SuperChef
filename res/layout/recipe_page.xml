@@ -39,6 +39,7 @@
 				android:textAppearance="?android:attr/textAppearanceMedium" />
 			<Button
 				android:id="@+id/favoriteButton"
+				style="@style/btnStyleArsenic"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_below="@+id/prepareTime"
@@ -58,7 +59,16 @@
 			android:layout_below="@+id/rating"
 			android:layout_centerHorizontal="true"
 			android:text="@string/ingredients"
-			android:textAppearance="?android:attr/textAppearanceMedium" />
+			android:textAppearance="?android:attr/textAppearanceLarge" />
+		<ImageButton
+			android:id="@+id/speechIngredientes"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/rating"
+			android:layout_toLeftOf="@+id/titleIngredients"
+			android:background="@null"
+			android:onClick="speakIngredientesText"
+			android:src="@drawable/megafone_icon" />
 		<ListView
 			android:id="@+id/ingredientsList"
 			android:layout_width="match_parent"
@@ -72,7 +82,16 @@
 			android:layout_below="@+id/ingredientsList"
 			android:layout_centerHorizontal="true"
 			android:text="@string/prepMode"
-			android:textAppearance="?android:attr/textAppearanceMedium" />
+			android:textAppearance="?android:attr/textAppearanceLarge" />
+		<ImageButton
+			android:id="@+id/speechPrepareMode"
+			android:layout_width="25dp"
+			android:layout_height="25dp"
+			android:layout_below="@+id/ingredientsList"
+			android:layout_toLeftOf="@+id/titlePrepMode"
+			android:background="@null"
+			android:onClick="speakPrepareModeText"
+			android:src="@drawable/megafone_icon" />
 		<ScrollView
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
@@ -84,15 +103,6 @@
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceMedium" />
 		</ScrollView>
-		<ImageButton
-			android:id="@+id/button1"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignBottom="@+id/relativeLayout1"
-			android:layout_alignParentRight="true"
-			android:background="@null"
-			android:onClick="speakText"
-			android:src="@drawable/megafone_icon" />
 	</RelativeLayout>
 	<!-- The navigation drawer -->
 	<ListView

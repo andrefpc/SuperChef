@@ -12,7 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.sharedprefs.R;
+import com.superchef.R;
 
 import domain.Ingrediente;
 import domain.Recipe;

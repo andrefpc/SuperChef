@@ -31,5 +31,13 @@ public enum PrepareModeEnum {
 		}
 		return null;
 	}
+	
+	public static int getByName(String name) {
+		for (PrepareModeEnum e : values()) {
+			if (e.name.equals(name))
+				return e.id;
+		}
+		return 0;
+	}
 
 }

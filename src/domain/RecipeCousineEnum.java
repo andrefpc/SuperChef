@@ -34,5 +34,13 @@ public enum RecipeCousineEnum {
 		}
 		return null;
 	}
+	
+	public static int getByName(String name) {
+		for (RecipeCousineEnum e : values()) {
+			if (e.name.equals(name))
+				return e.id;
+		}
+		return 0;
+	}
 
 }

@@ -1,11 +1,17 @@
 package control;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import service.ItemAdapter;
 import service.JsonFromUrl;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -14,11 +20,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.sharedprefs.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.superchef.R;
 
 import domain.Ingrediente;
+import domain.ItemList;
 import domain.Recipe;
 //import service.ItemAdapter;
 //import domain.ItemList;
@@ -40,9 +47,12 @@ public class ResponseListActivity extends BasicActivity {
 	   String ocasion = "";
 
 	   private ListView listView;
-	   private ArrayList<String> listRecipeName = new ArrayList<String>();
+	   private ArrayList<ItemList> listRecipeItens = new ArrayList<ItemList>();
+	   final List<Recipe> responseList = new ArrayList<Recipe>();
 //	   private ItemAdapter m_adapter;
-	   private ArrayAdapter<String> adapter;
+	   private ArrayAdapter<ItemList> adapter;
+	   Bitmap image;
+	   ItemList itemList;
 	   
 
 	   @Override
@@ -110,6 +120,24 @@ public class ResponseListActivity extends BasicActivity {
 	    	   java.lang.reflect.Type arrayListType = new TypeToken<ArrayList<Recipe>>(){}.getType();
 	    	   
 	    	   recipyList = gson.fromJson(JsonFromUrl.getJson(url), arrayListType);
+	    	   
+	    	   try {
+	    		   for (Recipe recipe : recipyList) {
+	    			   URL url = new URL(recipe.getImageUrl());
+	    			   HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	    			   connection.setDoInput(true);
+	    			   connection.connect();
+	    			   InputStream input = connection.getInputStream();
+	    			   image = BitmapFactory.decodeStream(input);
+	    			   itemList = new ItemList();
+	    			   itemList.setTitle(recipe.getTitulo());
+	    			   itemList.setImageUrl(image);
+	    			   listRecipeItens.add(itemList);
+	    			   responseList.add(recipe);
+	    		   }
+				} catch (Exception e) {
+				    return null;
+				}
 
 	    	   return null;
 	       }
@@ -117,15 +145,10 @@ public class ResponseListActivity extends BasicActivity {
 
        @Override
        protected void onPostExecute(Void result) {
-    	   final List<Recipe> responseList = new ArrayList<Recipe>();
-    	   for (Recipe recipy : recipyList) {
-			   listRecipeName.add(recipy.getTitulo());
-			   responseList.add(recipy);
-		   }
     	   
     	   listView = (ListView) findViewById(R.id.RecipesList);
  
-    	   adapter = new ArrayAdapter<String>(ResponseListActivity.this, android.R.layout.simple_list_item_1, listRecipeName);
+    	   adapter = new ItemAdapter(ResponseListActivity.this, android.R.layout.simple_list_item_1, listRecipeItens);
            
     	   listView.setAdapter(adapter);
     	   

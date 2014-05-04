@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sharedprefs.R;
+import com.superchef.R;
 
 public class ChronometerActivity extends BasicActivity implements OnClickListener {
 

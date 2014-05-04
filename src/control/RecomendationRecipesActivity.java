@@ -1,11 +1,17 @@
 package control;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import service.ItemAdapter;
 import service.JsonFromUrl;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -14,12 +20,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.sharedprefs.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.superchef.R;
 
 import domain.Ingrediente;
+import domain.ItemList;
 import domain.Recipe;
 
 public class RecomendationRecipesActivity extends BasicActivity{
@@ -36,9 +44,11 @@ public class RecomendationRecipesActivity extends BasicActivity{
 
 	   private ListView listView;
 	   private TextView title;
-	   private ArrayList<String> listRecipeName = new ArrayList<String>();
-//	   private ItemAdapter m_adapter;
-	   private ArrayAdapter<String> adapter;
+	   private ArrayList<ItemList> listRecipeItens = new ArrayList<ItemList>();
+	   final List<Recipe> responseList = new ArrayList<Recipe>();
+	   private ArrayAdapter<ItemList> adapter;
+	   Bitmap image;
+	   ItemList itemList;
 	   
 
 	   @Override
@@ -87,7 +97,31 @@ public class RecomendationRecipesActivity extends BasicActivity{
 
 	    	   java.lang.reflect.Type arrayListType = new TypeToken<ArrayList<Recipe>>(){}.getType();
 	    	   
-	    	   recipyList = gson.fromJson(JsonFromUrl.getJson(url), arrayListType);
+	    	   String json = JsonFromUrl.getJson(url);
+	    	   
+	    	   if(json == null){
+	    		   startActivity(new Intent(RecomendationRecipesActivity.this, NoConectionActivity.class));
+	    	   }else{
+	    		   recipyList = gson.fromJson(json, arrayListType);
+	    	   }
+	    	   
+	    	   try {
+	    		   for (Recipe recipe : recipyList) {
+	    			   URL url = new URL(recipe.getImageUrl());
+	    			   HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	    			   connection.setDoInput(true);
+	    			   connection.connect();
+	    			   InputStream input = connection.getInputStream();
+	    			   image = BitmapFactory.decodeStream(input);
+	    			   itemList = new ItemList();
+	    			   itemList.setTitle(recipe.getTitulo());
+	    			   itemList.setImageUrl(image);
+	    			   listRecipeItens.add(itemList);
+	    			   responseList.add(recipe);
+	    		   }
+				} catch (Exception e) {
+				    return null;
+				}
 
 	    	   return null;
 	       }
@@ -96,17 +130,12 @@ public class RecomendationRecipesActivity extends BasicActivity{
 	    @Override
 	    protected void onPostExecute(Void result) {
 	    	
-	    	final List<Recipe> responseList = new ArrayList<Recipe>();
-	    	for (Recipe recipy : recipyList) {
-	    		listRecipeName.add(recipy.getTitulo());
-	    		responseList.add(recipy);
-	    	}
 	    	title = (TextView) findViewById(R.id.title);
 	    	title.setText("Olá "+name+ ", encontramos receitas perfeitas para você!");
 	 	   
 	    	listView = (ListView) findViewById(R.id.recomendationList);
 	
-	    	adapter = new ArrayAdapter<String>(RecomendationRecipesActivity.this, android.R.layout.simple_list_item_1, listRecipeName);
+	    	adapter = new ItemAdapter(RecomendationRecipesActivity.this, android.R.layout.simple_list_item_1, listRecipeItens);
 	        
 	    	listView.setAdapter(adapter);
 	 	   

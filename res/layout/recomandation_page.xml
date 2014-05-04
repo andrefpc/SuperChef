@@ -11,14 +11,15 @@
 			android:id="@+id/title"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_centerHorizontal="true"
+			android:gravity="center"
 			android:textAppearance="?android:attr/textAppearanceLarge"
 			android:textColor="#CCCC00" />
 		<RelativeLayout
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
 			android:layout_below="@+id/title"
-			android:orientation="vertical" >
+			android:orientation="vertical"
+			android:paddingTop="20dp" >
 			<ListView
 				android:id="@+id/recomendationList"
 				android:layout_width="match_parent"
