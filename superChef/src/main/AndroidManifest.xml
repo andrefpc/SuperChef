@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="br.ufrj.superchef"
+	android:versionCode="1"
+	android:versionName="1.0" >
+	<uses-sdk
+		android:minSdkVersion="10"
+		android:targetSdkVersion="18" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<application
+		android:allowBackup="true"
+		android:icon="@drawable/super_chef_icon"
+		android:label="@string/app_name"
+		android:theme="@style/app_theme" >
+		<activity
+			android:name="br.ufrj.superchef.control.MainActivity"
+			android:label="@string/app_name"
+			android:screenOrientation="portrait" >
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name="br.ufrj.superchef.control.AddUserInfoActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="br.ufrj.superchef.control.SearchRecipyActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="br.ufrj.superchef.control.ResponseListActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="br.ufrj.superchef.control.RecipePageActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="br.ufrj.superchef.control.RecomendationRecipesActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="br.ufrj.superchef.control.FavoriteActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="br.ufrj.superchef.control.ChronometerActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="br.ufrj.superchef.control.BasicActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="br.ufrj.superchef.control.NoConectionActivity"
+			android:screenOrientation="portrait" >
+		</activity>
+	</application>
+</manifest>
